@@ -1,42 +1,31 @@
-import { useState } from 'react'
+import Home from './components/Home/Home';
+import Stations from './components/Stations/Stations';
+import Journeys from './components/Journeys/Journeys';
+import AvererageDistance from './components/AverageDistance';
+import { Link, Route, Routes } from 'react-router-dom'
 import './App.css'
 
 function App() {
-  const [start, setStart] = useState('');
-  const [destination, setDestination] = useState('');
-  const [distance, setDistance] = useState(null);
-  const url = 'http://127.0.0.1:8090/api/collections/';
-
-  const findJourneyData = async(start, end) => {
-    try {
-      const res = await fetch(`${url}journeys/records?filter=departure_station_name='${start}'&&return_station_name='${end}'`, {
-        cache: 'no-store',
-      });
-      const data = await res.json();
-      console.log(data.items[0].distance_m);
-      setDistance(data.items[0].distance_m);
-      return data.items[0];
-    } catch(err) {
-      setDistance('noroute');
-    }
-  } 
+  const apiUrl = 'http://127.0.0.1:8090';
 
   return (
     <>
-      <input 
-        type="text"
-        placeholder='start'
-        value={start}
-        onChange={(e) => setStart(e.target.value)}
-      />
-      <input 
-        type="text"
-        placeholder='destination'
-        value={destination}
-        onChange={(e) => setDestination(e.target.value)}
-      />
-      <button type="submit" onClick={() => findJourneyData(start, destination)}>find</button>
-      <p>{distance && distance !== 'noroute' ? `Average distance between stations is ${distance} meters.` : 'No route found'}</p>
+      <main>
+        <nav>
+          <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/stations">Stations</Link></li>
+            <li><Link to="/journeys">Journeys</Link></li>
+          </ul>
+        </nav>
+          {/*Routing*/}
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/stations" element={<Stations api={apiUrl}/>} />
+            <Route path="/journeys" element={<Journeys />} />
+            <Route path="/journeys/average" element={<AvererageDistance />} />
+          </Routes>
+      </main>
     </>
   )
 }
