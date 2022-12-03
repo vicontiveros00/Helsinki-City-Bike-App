@@ -1,0 +1,29 @@
+# Logs
+bike-app/logs
+bike-app/*.log
+bike-app/npm-debug.log*
+bike-app/yarn-debug.log*
+bike-app/yarn-error.log*
+bike-app/pnpm-debug.log*
+bike-app/lerna-debug.log*
+
+bike-app/node_modules
+bike-app/dist
+bike-app/dist-ssr
+*.local
+
+# Editor directories and files
+bike-app/.vscode/*
+bike-app/!.vscode/extensions.json
+bike-app/.idea
+bike-app/.DS_Store
+bike-app/*.suo
+bike-app/*.ntvs*
+bike-app/*.njsproj
+bike-app/*.sln
+bike-app/*.sw?
+
+# Databases
+
+api/data
+api/pb_data
