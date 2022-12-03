@@ -11,9 +11,22 @@ function Stations(props) {
         })
     }, []);
 
+    const handleSearch = (query) => {
+            apiCaller.searchStations(props.api, query).then((stations) => {
+                setStations(stations);
+            })
+    }
+
     return (
         <div className='station-list'>
             <h1>Stations:</h1>
+            <input 
+                type='text'
+                placeholder='Search'
+                onChange={(e)=> {
+                    handleSearch(e.target.value);
+                }}
+            />
             <div className='stations'>
                 {stations.map((station) => {
                     return <Station key={station.id} station={station} />
