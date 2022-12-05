@@ -70,7 +70,12 @@ function Stations(props) {
                 </table>
             </div>
             {!isSearching && <div className='pagination'>
-                <button disabled={
+                <button disabled= {
+                    currentPage < 3
+                } onClick= {() => {
+                    setCurrentPage(1)
+                }}>◄◄</button>
+                <button disabled= {
                     currentPage <= 1 ? true : false
                 } onClick={() => {
                     setCurrentPage(currentPage - 1)
@@ -81,6 +86,11 @@ function Stations(props) {
                 } onClick={() => {
                     setCurrentPage(currentPage + 1)
                 }}>►</button>
+                <button disabled= {
+                    currentPage >= totalPages - 1
+                } onClick= {() => {
+                    setCurrentPage(totalPages)
+                }}>►►</button>
             </div>}
         </div>
     )

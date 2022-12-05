@@ -29,7 +29,7 @@ input:focus {
   width: 14rem;
 }
 
-ul {
+nav ul {
   display: flex;
   justify-content: center;
   list-style: none;
