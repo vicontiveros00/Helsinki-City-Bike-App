@@ -8,7 +8,7 @@ function StationInfo(props) {
     const api = props.api;
     const { id } = useParams();
     const [ station, setStation ] = useState({});
-    const { nimi, namn, osoite, adress, kaupunki, kapasiteet} = station || null;
+    const { nimi, namn, osoite, adress, kaupunki, stad, kapasiteet} = station || null;
 
     useEffect(() => {
         apiCaller.getStationById(api, id).then((station) => {
@@ -20,7 +20,7 @@ function StationInfo(props) {
         <div className="info">
             <h2>{`🚲 ${nimi} Station` || 'Loading info...'}</h2>
             <Map address={osoite} city={kaupunki} />
-            <p className="swe">{`På Svenska: ${namn} finns på ${adress}.`}</p>
+            <p className="swe">{`${namn} finns på ${adress} i ${stad}.`}</p>
             <p>{`${osoite}, ${kaupunki === '\'\'' ? 'Helsinki' : kaupunki}`}</p>
             <p>{`Bike capacity: ${kapasiteet}`}</p>
             <p>{`0 trips have started here.`}</p>

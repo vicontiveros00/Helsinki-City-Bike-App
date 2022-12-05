@@ -19,12 +19,12 @@ function Journeys(props) {
     
     return (
         <div className='journey-list'>
-            <h1>Journeys</h1>
+            {window.innerWidth < 800 && <p>Table doesn't look good on smaller screens :(</p>}
+            <h1>All CityBike Journeys</h1>
             <div className='journeys'>
                 <table>
                     <tbody>
                         <tr>
-                            <th>ID</th>
                             <th>Departure</th>
                             <th>Return</th>
                             <th>From</th>
