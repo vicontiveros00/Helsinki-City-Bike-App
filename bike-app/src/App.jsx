@@ -11,21 +11,21 @@ function App() {
 
   return (
     <>
+      <nav>
+        <ul>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/stations">Stations</Link></li>
+          <li><Link to="/journeys">Journeys</Link></li>
+        </ul>
+      </nav>
       <main>
-        <nav>
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/stations">Stations</Link></li>
-            <li><Link to="/journeys">Journeys</Link></li>
-          </ul>
-        </nav>
           {/*Routing*/}
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/stations" element={<Stations api={apiUrl}/>} />
-            <Route path="/stations/:id" element={<StationInfo api={apiUrl} />} />
-            <Route path="/journeys" element={<Journeys api={apiUrl}/>} />
-            <Route path="/journeys/average" element={<AvererageDistance />} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/stations" element={<Stations api={apiUrl}/>} />
+          <Route path="/stations/:id" element={<StationInfo api={apiUrl} />} />
+          <Route path="/journeys" element={<Journeys api={apiUrl}/>} />
+          <Route path="/journeys/average" element={<AvererageDistance />} />
           </Routes>
       </main>
     </>

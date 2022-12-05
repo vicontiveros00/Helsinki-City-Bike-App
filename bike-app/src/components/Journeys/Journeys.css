@@ -1,0 +1,43 @@
+.journey-list {
+    width: 60%;
+}
+
+.journeys {
+    overflow-x: auto;
+}
+
+.journey-list h1 {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.journey-list td, .journey-list th {
+    padding: 0.4rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: left !important;
+}
+
+.journey-list table {
+    margin: 0 auto;
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+    table-layout: fixed;
+    min-width: 900px;
+}
+
+.journey-list th:nth-child(1) {
+    width: 6rem;
+}
+
+.journey-list th:nth-child(2), .journey-list th:nth-child(3) {
+    width: 9rem;
+}
+
+.journey-list th:nth-child(4), .journey-list th:nth-child(5) {
+    width: 11rem;
+}
+
+.journey-list th:nth-child(6), .journey-list th:nth-child(7) {
+    width: 7rem;
+}

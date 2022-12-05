@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Journey from './Journey/Journey';
 import apiCaller from '../../util/apiCaller';
+import './Journeys.css';
 
 function Journeys(props) {
     const [ journeys, setJourneys ] = useState([]);
@@ -20,11 +21,26 @@ function Journeys(props) {
         <div className='journey-list'>
             <h1>Journeys</h1>
             <div className='journeys'>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>ID</th>
+                            <th>Departure</th>
+                            <th>Return</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Distance</th>
+                            <th>Duration</th>
+                        </tr>
                 {journeys.map((journey) => {
                     return (
-                        <Journey key={journey.id} journey={journey} />
+                        <tr>
+                            <Journey key={journey.id} journey={journey} />
+                        </tr>
                     )
                 })}
+                    </tbody>
+                </table>
             </div>
             <div className='pagination'>
                 <button disabled={

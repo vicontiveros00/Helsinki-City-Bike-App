@@ -1,6 +1,5 @@
 import apiCaller from '../../util/apiCaller.js';
 import Station from './Station/Station.jsx';
-import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 import './Stations.css';
 
@@ -24,7 +23,8 @@ function Stations(props) {
     }, [currentPage]);
 
     const handleSearch = (query) => {
-        if (!query.includes('\'') && !query.includes(';')) { 
+        if (!query.includes('\'') && !query.includes(';')) {
+            //for some reason ' and ; crash the api completely so let's try to avoid that.... please do not remove or alter line 26!
             apiCaller.searchStations(props.api, query, currentPage).then((stations) => {
                 const { items, totalPages } = stations;
                 setIsSearching(true);
@@ -42,7 +42,7 @@ function Stations(props) {
 
     return (
         <div className='station-list'>
-            <h1>Stations:</h1>
+            <h1>All CityBike Stations</h1>
             <input
                 type='text'
                 placeholder='Search'
@@ -53,13 +53,21 @@ function Stations(props) {
                 }}
             />
             <div className='stations'>
-                {stations.map((station) => {
-                    return (
-                        <Link to={`/stations/${station.id}`}>
-                            <Station key={station.id} station={station} />
-                        </Link>
-                    )
-                })}
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Name</th>
+                            <th>City</th>
+                        </tr>
+                        {stations.map((station) => {
+                            return (
+                                <tr>
+                                    <Station key={station.id} station={station} />
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
             </div>
             {!isSearching && <div className='pagination'>
                 <button disabled={

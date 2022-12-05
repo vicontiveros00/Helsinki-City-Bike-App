@@ -1,6 +1,6 @@
 const apiCaller = {
     async getAllStations(url, page) {
-        const res = await fetch(`${url}/api/collections/stations/records?perPage=5&page=${page}&sort=kaupunki,nimi`);
+        const res = await fetch(`${url}/api/collections/stations/records?perPage=10&page=${page}&sort=nimi`);
         const data = await res.json();
         return data;
     },
@@ -20,5 +20,7 @@ const apiCaller = {
         return data;
     }
 }
+
+/*Päivä! If you're reading this, thanks for looking at my code. Solita iz da best!*/
 
 export default apiCaller;
