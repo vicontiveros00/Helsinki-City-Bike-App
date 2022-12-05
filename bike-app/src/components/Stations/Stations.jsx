@@ -10,8 +10,6 @@ function Stations(props) {
     const [ currentPage, setCurrentPage ] = useState(1);
     const [ isSearching, setIsSearching ] = useState(false);
 
-    console.log(isSearching);
-
     const reset = () => {
         setIsSearching(false);
         apiCaller.getAllStations(props.api, currentPage).then((stations) => {

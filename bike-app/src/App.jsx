@@ -23,8 +23,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/stations" element={<Stations api={apiUrl}/>} />
-            <Route path="/stations/:id" element={<StationInfo />} />
-            <Route path="/journeys" element={<Journeys />} />
+            <Route path="/stations/:id" element={<StationInfo api={apiUrl} />} />
+            <Route path="/journeys" element={<Journeys api={apiUrl}/>} />
             <Route path="/journeys/average" element={<AvererageDistance />} />
           </Routes>
       </main>

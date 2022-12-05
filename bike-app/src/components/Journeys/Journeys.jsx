@@ -1,15 +1,45 @@
-import { Link } from 'react-router-dom';
-import React from 'react';
+//import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import Journey from './Journey/Journey';
+import apiCaller from '../../util/apiCaller';
 
-function Journeys() {
+function Journeys(props) {
+    const [ journeys, setJourneys ] = useState([]);
+    const [ totalPages, setTotalPages ] = useState(1);
+    const [ currentPage, setCurrentPage ] = useState(1);
+
+    useEffect(() => {
+        apiCaller.getJourneys(props.api, currentPage).then((journeys) => {
+            const { items, totalPages } = journeys;
+            setJourneys(items);
+            setTotalPages(totalPages);
+        })
+    }, [currentPage])
+    
     return (
-        <>
-            <p>This is where journeys table will go</p>
-            <img src="https://media4.giphy.com/media/WiXMlla4ZFR8Q/giphy.gif" />
-            <button>
-                <Link to={"/journeys/average"}>Calculate Average Distances</Link>
-            </button>
-        </>
+        <div className='journey-list'>
+            <h1>Journeys</h1>
+            <div className='journeys'>
+                {journeys.map((journey) => {
+                    return (
+                        <Journey key={journey.id} journey={journey} />
+                    )
+                })}
+            </div>
+            <div className='pagination'>
+                <button disabled={
+                    currentPage <= 1 ? true : false
+                } onClick={() => {
+                    setCurrentPage(currentPage - 1)
+                }}>◄</button>
+                <p>{currentPage} of {totalPages}</p>
+                <button disabled={
+                    currentPage >= totalPages ? true : false
+                } onClick={() => {
+                    setCurrentPage(currentPage + 1)
+                }}>►</button>
+            </div>
+        </div>
     )
 }
 
