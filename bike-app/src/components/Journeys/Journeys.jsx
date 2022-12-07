@@ -15,7 +15,7 @@ function Journeys(props) {
             setJourneys(items);
             setTotalPages(totalPages);
         })
-    }, [currentPage])
+    }, [currentPage]);
     
     return (
         <div className='journey-list'>
@@ -32,17 +32,29 @@ function Journeys(props) {
                             <th>Distance</th>
                             <th>Duration</th>
                         </tr>
-                {journeys.map((journey) => {
+                {journeys[0] ? journeys.map((journey) => {
                     return (
                         <tr>
                             <Journey key={journey.id} journey={journey} />
                         </tr>
                     )
-                })}
+                }) : <tr>
+                        <td>Loading....</td>
+                        <td>Loading....</td>
+                        <td>Loading....</td>
+                        <td>Loading....</td>
+                        <td>Loading....</td>
+                        <td>Loading....</td>
+                    </tr>}
                     </tbody>
                 </table>
             </div>
             <div className='pagination'>
+                <button disabled= {
+                    currentPage < 3
+                } onClick= {() => {
+                    setCurrentPage(1)
+                }}>◄◄</button>
                 <button disabled={
                     currentPage <= 1 ? true : false
                 } onClick={() => {
@@ -54,6 +66,11 @@ function Journeys(props) {
                 } onClick={() => {
                     setCurrentPage(currentPage + 1)
                 }}>►</button>
+                <button disabled= {
+                    currentPage >= totalPages - 1
+                } onClick= {() => {
+                    setCurrentPage(totalPages)
+                }}>►►</button>
             </div>
         </div>
     )

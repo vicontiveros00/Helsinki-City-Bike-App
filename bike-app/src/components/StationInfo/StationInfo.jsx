@@ -17,18 +17,23 @@ function StationInfo(props) {
     }, []);
 
     return (
-        <div className="info">
-            <h2>{`🚲 ${nimi} Station 🚲` || 'Loading info...'}</h2>
-            <Map address={osoite} city={kaupunki} />
-            <p className="swe">{namn} finns på {adress} i {stad}.</p>
-            <p>Address: {osoite}, {kaupunki}</p>
-            <p>Bike capacity: <strong>{kapasiteet}</strong></p>
-            <p>According to the data...</p>
-            <ul>
-                <li><strong>{num_from}</strong> trips started here</li>
-                <li><strong>{num_to}</strong> trips have ended here</li>
-            </ul>
-        </div>
+        <>
+            {nimi ?
+                <div className="info">
+                    <h2>{`🚲 ${nimi} Station 🚲`}</h2>
+                    <Map address={osoite} city={kaupunki} />
+                    <p className="swe">{namn} finns på {adress} i {stad}.</p>
+                    <p>Address: {osoite}, {kaupunki}</p>
+                    <p>Bike capacity: <strong>{kapasiteet}</strong></p>
+                    <p>According to the data...</p>
+                    <ul>
+                        <li><strong>{num_from}</strong> trips started here</li>
+                        <li><strong>{num_to}</strong> trips have ended here</li>
+                    </ul>
+                </div>
+            : <h1>Loading....</h1>
+            }
+        </>
     )
 }
 

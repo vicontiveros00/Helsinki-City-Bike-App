@@ -7,7 +7,7 @@ import { Link, Route, Routes } from 'react-router-dom'
 import './App.css'
 
 function App() {
-  const apiUrl = 'http://127.0.0.1:8090';
+  const apiUrl = 'https://vichelbikeapp.fly.dev';
 
   return (
     <>
