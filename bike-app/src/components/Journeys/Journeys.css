@@ -19,7 +19,7 @@
 
 .journey-list td, .journey-list th {
     padding: 0.4rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid #0d0d0d;
     text-align: left !important;
 }
 
@@ -27,4 +27,6 @@
     margin: 1rem auto;
     border-collapse: collapse;
     table-layout: fixed;
+    background-color: #1a1a1a;
+    filter: drop-shadow(2px 2px 3px #000);
 }

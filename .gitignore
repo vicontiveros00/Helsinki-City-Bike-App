@@ -23,6 +23,5 @@ bike-app/*.njsproj
 bike-app/*.sln
 bike-app/*.sw?
 
-# Databases
-
+# DB files
 api/pb_data/*

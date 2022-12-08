@@ -65,7 +65,7 @@ function Stations(props) {
             <h1>All CityBike Stations</h1>
                 <input
                     type='text'
-                    placeholder='Search'
+                    placeholder='Search by name or address'
                     onChange={(e)=> {
                         e.target.value ?
                         handleSearch(e.target.value) :

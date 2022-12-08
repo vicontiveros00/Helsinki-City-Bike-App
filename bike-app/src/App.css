@@ -18,10 +18,9 @@ iframe {
 }
 
 img {
-  margin-top: 2rem;
   border-radius: 1rem;
   filter: var(--shadow);
-  margin: 2rem auto;
+  margin: 2rem auto 0;
   width: 100%;
   display: block;
 }
