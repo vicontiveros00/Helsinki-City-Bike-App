@@ -25,5 +25,4 @@ bike-app/*.sw?
 
 # Databases
 
-api/data
-api/pb_data
+api/pb_data/*

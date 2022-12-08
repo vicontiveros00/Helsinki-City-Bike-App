@@ -3,6 +3,7 @@
 }
 
 .info h2 {
+    margin-top: 1rem;
     text-align: center;
 }
 
@@ -13,3 +14,20 @@
 .info li {
     margin-left: 1.4rem;
 }
+
+.info {
+    max-width: 900px;
+    width: 80%;
+}
+
+.container {
+    margin-top: 2rem;
+}
+
+@media only screen and (min-width: 650px) {
+    .container {
+        display: flex;
+        gap: 2rem;
+    }
+}
+

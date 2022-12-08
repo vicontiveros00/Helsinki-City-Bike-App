@@ -10,23 +10,35 @@
 iframe {
   border-radius: 1rem;
   border: 1px solid #646cff;
-  margin-bottom: 0 !important;
   filter: var(--shadow);
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: block;
+  margin: 0 auto 1rem;
+}
+
+img {
+  margin-top: 2rem;
+  border-radius: 1rem;
+  filter: var(--shadow);
+  margin: 2rem auto;
+  width: 100%;
+  display: block;
 }
 
 input {
   display: block;
   filter: var(--shadow);
   margin: 1rem auto;
-  width: 12rem;
-  padding: 0.4rem 1.2rem;
+  width: calc(100% - 3rem);
+  padding: 0.6rem 1.2rem;
   border: 1px solid #000;
   border-radius: 1rem;
   transition: 0.2s;
 }
 
 input:focus {
-  width: 14rem;
+  width: 100%;
 }
 
 nav ul {
@@ -78,4 +90,9 @@ button:focus-visible {
 
 button:disabled {
   visibility: hidden;
+}
+
+.loader {
+  width: 5rem;
+  margin: 0 auto;
 }

@@ -24,7 +24,7 @@
 }
 
 .journey-list table {
-    margin: 0 auto;
+    margin: 1rem auto;
     border-collapse: collapse;
     table-layout: fixed;
 }

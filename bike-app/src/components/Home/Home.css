@@ -1,0 +1,16 @@
+.home {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+}
+
+.home p {
+    margin: 1.2rem auto;
+}
+
+figcaption {
+    font-size: 0.7rem;
+}
