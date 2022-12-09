@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import toDaysMinutesSeconds from "../../../util/timeFormatter";
 
 function Journey({ journey }) {
    const { departure, return_time, departure_station_id,  departure_station_name, return_station_id, return_station_name, distance_m, duration_s } = journey || null;
@@ -22,7 +23,7 @@ function Journey({ journey }) {
             <Link to={`/stations/${return_station_id}`}>{return_station_name}</Link>
         </td>
         <td>{(distance_m / 1000).toFixed(2)} km</td>
-        <td>{(duration_s / 60).toFixed(2)} mins</td>
+        <td>{toDaysMinutesSeconds(duration_s)}</td>
     </>
    )
 }

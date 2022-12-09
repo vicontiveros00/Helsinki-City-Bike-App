@@ -1,0 +1,16 @@
+function toDaysMinutesSeconds(totalSeconds) {
+    const seconds = Math.floor(totalSeconds % 60);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
+    const days = Math.floor(totalSeconds / (3600 * 24));
+  
+    const secondsStr = `${seconds}s`;
+    const minutesStr = `${minutes}m`;
+    const hoursStr = `${hours}h`;
+    const daysStr = `${days}d`;
+  
+    return `${days ? daysStr : ''} ${hours ? hoursStr : ''} ${minutes ? minutesStr : ''} ${secondsStr}`.replace(/,\s*$/, '');
+}
+
+export default toDaysMinutesSeconds;
+  
