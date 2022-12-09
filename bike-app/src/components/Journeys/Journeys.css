@@ -30,3 +30,11 @@
     background-color: #1a1a1a;
     filter: drop-shadow(2px 2px 3px #000);
 }
+
+.filter {
+    cursor: pointer;
+}
+
+.filter::after {
+    content: '↕'
+}

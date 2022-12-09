@@ -23,7 +23,7 @@ function Journey({ journey }) {
         <td>
             <Link to={`/stations/${return_station_id}`}>{return_station_name}</Link>
         </td>
-        <td>{distance_m}</td>
+        <td>{(distance_m / 1000).toFixed(2)} km</td>
         <td>{time.toISOString().substr(11,8)}</td>
     </>
    )
