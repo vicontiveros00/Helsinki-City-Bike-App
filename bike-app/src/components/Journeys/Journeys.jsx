@@ -38,7 +38,7 @@ function Journeys(props) {
         {!hasError ?
         <div className='journey-list'>
             {window.innerWidth < 800 && <p>Table doesn't look good on smaller screens :(</p>}
-            <h1>All CityBike Journeys</h1>
+            <h1>All City Bike Journeys</h1>
             <div className='pagination'>
                 <button disabled= {
                      currentPage < 3
@@ -68,18 +68,22 @@ function Journeys(props) {
                     <tbody>
                         <tr>
                             <th className='filter' onClick={() => {
-                                setSortMethod(sortMethod === 'departure' ? '-departure' : 'departure');
+                                setCurrentPage(1);
+                                setSortMethod(sortMethod === '-departure' ? 'departure' : '-departure');
                             }}>Departure</th>
                             <th className='filter' onClick={() => {
-                                setSortMethod(sortMethod === 'return_time' ? '-return_time' : 'return_time');
+                                setCurrentPage(1);
+                                setSortMethod(sortMethod === '-return_time' ? 'return_time' : '-return_time');
                             }}>Return</th>
                             <th>From</th>
                             <th>To</th>
                             <th className='filter' onClick={() => {
-                                setSortMethod(sortMethod === 'distance_m' ? '-distance_m' : 'distance_m');
+                                setCurrentPage(1);
+                                setSortMethod(sortMethod === '-distance_m' ? 'distance_m' : '-distance_m');
                             }}>Distance</th>
                             <th className='filter' onClick={() => {
-                                setSortMethod(sortMethod === 'duration_s' ? '-duration_s' : 'duration_s');
+                                setCurrentPage(1);
+                                setSortMethod(sortMethod === '-duration_s' ? 'duration_s' : '-duration_s');
                             }}>Duration</th>
                         </tr>
                 {journeys.map((journey) => {

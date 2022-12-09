@@ -21,7 +21,7 @@ function App() {
       <main>
           {/*Routing*/}
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home api={apiUrl}/>} />
           <Route path="/stations" element={<Stations api={apiUrl}/>} />
           <Route path="/stations/:id" element={<StationInfo api={apiUrl} />} />
           <Route path="/journeys" element={<Journeys api={apiUrl}/>} />

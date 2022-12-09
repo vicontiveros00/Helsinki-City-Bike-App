@@ -11,7 +11,37 @@
     margin: 1.2rem auto;
 }
 
+.bike {
+    display: inline-block;
+    margin-left: 0.5rem;
+    animation: cycling 2s ease 0s infinite normal;
+}
+
 figcaption {
     margin-top: 0 !important;
     font-size: 0.7rem;
+}
+
+@keyframes cycling {
+    0% {
+        transform: translateY(0);  
+    }
+    20% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateX(-10px);
+    }
+    50% {
+        transform: translateY(0);
+    }
+    60% {
+        transform: translateY(0);
+    }
+    80% {
+        transform: translateX(-10px);
+    }
+    100% {  
+        transform: translateY(0);
+    }
 }

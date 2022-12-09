@@ -9,7 +9,6 @@ function Stations(props) {
     const [ stations, setStations ] = useState([]);
     const [ totalPages, setTotalPages ] = useState(1);
     const [ currentPage, setCurrentPage ] = useState(1);
-    const [ isSearching, setIsSearching ] = useState(false);
     const [ isLoading, setIsLoading ] = useState(true);
     const [ hasError, setHasError ] = useState(false);
 
@@ -21,7 +20,6 @@ function Stations(props) {
 
     const reset = () => {
         setIsLoading(true);
-        setIsSearching(false);
         apiCaller.getAllStations(props.api, currentPage).then((stations) => {
             const { items, totalPages } = stations
             setStations(items);
@@ -39,9 +37,8 @@ function Stations(props) {
     const handleSearch = (query) => {
         if (!query.includes('\'') && !query.includes(';')) {
             //for some reason ' and ; causes api errors
-            apiCaller.searchStations(props.api, query, currentPage).then((stations) => {
+            apiCaller.searchStations(props.api, currentPage, query).then((stations) => {
                 const { items, totalPages } = stations;
-                setIsSearching(true);
                 setTotalPages(totalPages);
                 setStations(items);
             }).catch(() => {
@@ -50,6 +47,7 @@ function Stations(props) {
         } else if (query == '') {
             apiCaller.getAllStations(props.api).then((stations) => {
                 const { items, totalPages } = stations
+                setCurrentPage(1);
                 setTotalPages(totalPages);
                 setStations(items);
             }).catch(() => {
@@ -62,7 +60,7 @@ function Stations(props) {
         <>
         {!hasError ?
         <div className='station-list'>
-            <h1>All CityBike Stations</h1>
+            <h1>All City Bike Stations</h1>
                 <input
                     type='text'
                     placeholder='Search by name or address'
@@ -72,7 +70,7 @@ function Stations(props) {
                         reset();
                     }}
                 />
-                {!isSearching && <div className='pagination'>
+                <div className='pagination'>
                     <button disabled= {
                         currentPage < 3
                     } onClick= {() => {
@@ -83,7 +81,7 @@ function Stations(props) {
                     } onClick={() => {
                         setCurrentPage(currentPage - 1)
                     }}>◄</button>
-                    <p>{currentPage} of {totalPages}</p>
+                    <p>{currentPage} of {totalPages > 0 ? totalPages : 1}</p>
                     <button disabled={
                         currentPage >= totalPages ? true : false
                     } onClick={() => {
@@ -94,7 +92,7 @@ function Stations(props) {
                     } onClick= {() => {
                         setCurrentPage(totalPages)
                     }}>►►</button>
-                </div>}
+                </div>
                 {!isLoading ?
                 <div className='stations'>
                     <table>
@@ -114,7 +112,7 @@ function Stations(props) {
                     </table>
                 </div> : 
                 <>
-                    <PulseLoader color="#646cff"        cssOverride={{
+                    <PulseLoader color="#646cff" cssOverride={{
                         display: 'flex',
                         justifyContent: 'center',
                         margin: '1rem'
