@@ -2,7 +2,6 @@ import Home from './components/Home/Home';
 import Stations from './components/Stations/Stations';
 import StationInfo from './components/StationInfo/StationInfo';
 import Journeys from './components/Journeys/Journeys';
-import apiCaller from './util/apiCaller';
 import { Link, Route, Routes } from 'react-router-dom'
 import './App.css'
 

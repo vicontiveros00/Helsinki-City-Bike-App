@@ -4,8 +4,8 @@ const apiCaller = {
         const data = await res.json();
         return data;
     },
-    async searchStations(url, page, query) {
-        const res = await fetch(`${url}/api/collections/stations/records?perPage=10&page=${page}&filter=(nimi~'${query}'||osoite~'${query}'||kaupunki~'${query}')`);
+    async searchStations(url, query) {
+        const res = await fetch(`${url}/api/collections/stations/records?perPage=500&filter=(nimi~'${query}'||osoite~'${query}'||kaupunki~'${query}')`);
         const data = await res.json();
         return data;
     },

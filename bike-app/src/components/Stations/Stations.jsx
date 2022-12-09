@@ -9,6 +9,7 @@ function Stations(props) {
     const [ stations, setStations ] = useState([]);
     const [ totalPages, setTotalPages ] = useState(1);
     const [ currentPage, setCurrentPage ] = useState(1);
+    const [ isSearching, setIsSearching ] = useState(false);
     const [ isLoading, setIsLoading ] = useState(true);
     const [ hasError, setHasError ] = useState(false);
 
@@ -20,6 +21,7 @@ function Stations(props) {
 
     const reset = () => {
         setIsLoading(true);
+        setIsSearching(false);
         apiCaller.getAllStations(props.api, currentPage).then((stations) => {
             const { items, totalPages } = stations
             setStations(items);
@@ -39,17 +41,18 @@ function Stations(props) {
             //for some reason ' and ; causes api errors
             apiCaller.searchStations(props.api, currentPage, query).then((stations) => {
                 const { items, totalPages } = stations;
+                setIsSearching(true);
                 setTotalPages(totalPages);
                 setStations(items);
             }).catch(() => {
                 handleError();
             })
         } else if (query == '') {
-            apiCaller.getAllStations(props.api).then((stations) => {
+            apiCaller.getAllStations(props.api, currentPage).then((stations) => {
                 const { items, totalPages } = stations
-                setCurrentPage(1);
                 setTotalPages(totalPages);
                 setStations(items);
+                setCurrentPage(1);
             }).catch(() => {
                 handleError();
             })
@@ -70,11 +73,11 @@ function Stations(props) {
                         reset();
                     }}
                 />
-                <div className='pagination'>
+                {!isSearching && <div className='pagination'>
                     <button disabled= {
                         currentPage < 3
                     } onClick= {() => {
-                        setCurrentPage(1)
+                        setCurrentPage(1);
                     }}>◄◄</button>
                     <button disabled= {
                         currentPage <= 1 ? true : false
@@ -92,7 +95,7 @@ function Stations(props) {
                     } onClick= {() => {
                         setCurrentPage(totalPages)
                     }}>►►</button>
-                </div>
+                </div>}
                 {!isLoading ?
                 <div className='stations'>
                     <table>

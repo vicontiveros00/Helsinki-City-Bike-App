@@ -1,6 +1,5 @@
 //import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import { useTable } from 'react-table';
 import Journey from './Journey/Journey';
 import apiCaller from '../../util/apiCaller';
 import PulseLoader from 'react-spinners/PulseLoader';
