@@ -18,7 +18,8 @@
 }
 
 figcaption {
-    margin-top: 0 !important;
+    margin-top: 0.2rem !important;
+    line-height: normal;
     font-size: 0.7rem;
 }
 
