@@ -60,7 +60,7 @@ Contains the station's location on [Google Maps](https://developers.google.com/m
 ![View of journeys table](media/journeystable.PNG)<br>
 Here is a complete table of journeys taken in the summer of 2021 on city bikes and [pagination](#pagination). By default, the data is sorted in ascending order by departure time. Clicking on the head will sort the respective column by descending order, and a second click will sort the respective column by ascending order. You are able to view information about each station from the journeys table as well.
 
-## [Backend ?](api/)
+## [Backend](api/)
 You're probably wondering how the backend works. If you show massive CSV files to most other frontend developers they will most likely run away. The backend runs on a VM hosted on [fly.io](https://fly.io/) via [Docker](api/Dockerfile). It's a REST API using [Pocketbase](https://pocketbase.io/docs/), an open source way of bootstrapping a backend. It's built upon Typescript and SQLite. I might only be a front end developer, but I have some tricks to handle APIs and data. Should one want to run the API locally, navigate to `api/` and run `./pocketbase serve`. (Data has to be in `.db` format, in `api/pb_data`).
 
 ### Handling the data
@@ -70,7 +70,7 @@ Schema for `stations`:<br>
 Schema for `journeys`:<br>
 ![Journeys schema](media/journeysschema.PNG)<br><br>
 
-To remove journeys that lasted for less than 10 seconds:<br>
+To remove journeys that lasted for less than 10 seconds in SQL:<br>
 ```
 DELETE
 FROM journeys
@@ -80,7 +80,7 @@ FROM journeys
 WHERE duration_s < 10;
 ```
 <br><br>
-To remove duplicate journeys (of which there were plenty):<br>
+To remove duplicate journeys (of which there were plenty) in SQL:<br>
 ```
 DELETE FROM journeys
 WHERE id IN (SELECT id FROM journey
@@ -88,7 +88,7 @@ WHERE id IN (SELECT id FROM journey
     HAVING COUNT(*) > 1);
 ```
 <br><br>
-To count how many journeys started/ended at each station:<br>
+To count how many journeys started/ended at each station in SQL:<br>
 ```
 UPDATE stations
 SET num_from = (SELECT COUNT(*)
@@ -103,18 +103,20 @@ SET num_to = (SELECT COUNT(*)
 ### API
 [View JSON for stations here](https://helbikeappvic.fly.dev/api/collections/stations/records)<br>
 [View JSON for journeys here](https://helbikeappvic.fly.dev/api/collections/journeys/records)<br>
-JSON includes<br>
+JSON includes:
 - page (current page)
 - perPage (how many results per page)
 - totalItems (how many total items per collection)
 - totalPages (how many pages per collection)
 - items (array of data following schema of respective collection)<br>
 [`bike-app/src/util/apiCaller.js`](bike-app/src/util/apiCaller.js) contains some API endpoints being used.
-Endpoints examples:<br>
+
+Endpoints examples:
 - `/api/collections/${stations || journeys}/records?page=${pageNumber}`
 - `/api/collections/${stations || journeys}/records?perPageage=${amountPerPage}`
 - `/api/collections/${stations || journeys}/records?sort=${sortMethod}`
 - `/api/collections/${stations || journeys}/records?filter=(nimi=${searchQuery})`
+
 Query parametes can be combined with `&`. Refer to [Pocketbase Docs](https://pocketbase.io/docs/) for more information.
 
 ## Project Reflection
