@@ -41,7 +41,7 @@ Dependencies:
 Contains a description of the app, the longest journey in the database, and a link to my github. Should a network error occur, nothing will display above the link to my github.
 
 ### Pagination
-![View of pagination](media/stationslist.PNG)<br>
+![View of pagination](media/pagination.PNG)<br>
 - ◄◄ button sends users back to the first page of stations. Appears when current page is over 2.
 - ◄ button sends users one page back. Appears when current page is over 1.
 - ► button sends users one page forward. Appears when the current page is less than the total amount of pages.
@@ -58,7 +58,7 @@ Contains the station's location on [Google Maps](https://developers.google.com/m
 
 ### [Journeys Table](bike-app/src/components/Journeys/Journeys.jsx)
 ![View of journeys table](media/journeystable.PNG)<br>
-Here is a complete table of journeys taken in the summer of 2021 on city bikes and [pagination](#pagination). By default, the data is sorted in ascending order by departure time. Clicking on the head will sort the respective column by descending order, and a second click will sort the respective column by ascending order.
+Here is a complete table of journeys taken in the summer of 2021 on city bikes and [pagination](#pagination). By default, the data is sorted in ascending order by departure time. Clicking on the head will sort the respective column by descending order, and a second click will sort the respective column by ascending order. You are able to view information about each station from the journeys table as well.
 
 ## [Backend ?](api/)
 You're probably wondering how the backend works. If you show massive CSV files to most other frontend developers they will most likely run away. The backend runs on a VM hosted on [fly.io](https://fly.io/) via [Docker](api/Dockerfile). It's a REST API using [Pocketbase](https://pocketbase.io/docs/), an open source way of bootstrapping a backend. It's built upon Typescript and SQLite. I might only be a front end developer, but I have some tricks to handle APIs and data. Should one want to run the API locally, navigate to `api/` and run `./pocketbase serve`. (Data has to be in `.db` format, in `api/pb_data`).
@@ -67,7 +67,7 @@ You're probably wondering how the backend works. If you show massive CSV files t
 CSV files were imported into Pocketbase's SQLite Database using [DB Browser](https://sqlitebrowser.org/).<br>
 Schema for `stations`:<br>
 ![Stations schema](media/stationsschema.PNG)<br><br>
-Schema for `journeys`<br>
+Schema for `journeys`:<br>
 ![Journeys schema](media/journeysschema.PNG)<br><br>
 
 To remove journeys that lasted for less than 10 seconds:<br>
@@ -109,12 +109,12 @@ JSON includes<br>
 - totalItems (how many total items per collection)
 - totalPages (how many pages per collection)
 - items (array of data following schema of respective collection)<br>
-[`bike-app/src/util/apiCaller.js`](bike-app/src/util/apiCaller.js) contains some API endpoints being used.<br>
-Endpoints examples:
-- /api/collections/${stations || journeys}/records?page=${pageNumber}
-- /api/collections/${stations || journeys}/records?perPageage=${amountPerPage}
-- /api/collections/${stations || journeys}/records?sort=${sortMethod}
-- /api/collections/${stations || journeys}/records?filter=(nimi=${searchQuery})<br>
+[`bike-app/src/util/apiCaller.js`](bike-app/src/util/apiCaller.js) contains some API endpoints being used.
+Endpoints examples:<br>
+- `/api/collections/${stations || journeys}/records?page=${pageNumber}`
+- `/api/collections/${stations || journeys}/records?perPageage=${amountPerPage}`
+- `/api/collections/${stations || journeys}/records?sort=${sortMethod}`
+- `/api/collections/${stations || journeys}/records?filter=(nimi=${searchQuery})`
 Query parametes can be combined with `&`. Refer to [Pocketbase Docs](https://pocketbase.io/docs/) for more information.
 
 ## Project Reflection
@@ -122,6 +122,6 @@ Improvements can still be made and I will continue to maintain this codebase whe
 
 ###### Licenses
 Station data is owned by [HSL](https://www.avoindata.fi/data/en_GB/dataset/hsl-n-kaupunkipyoraasemat/resource/a23eef3a-cc40-4608-8aa2-c730d17e8902?inner_span=True).<br> 
-Journey data is owned by City Bike Finland. 
+Journey data is owned by [City Bike Finland](https://www.citybikefinland.fi/). 
 <br>
 Images are used with Creative Commons in mind.
