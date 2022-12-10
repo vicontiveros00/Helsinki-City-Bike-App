@@ -1,4 +1,5 @@
 function Map(props) {
+    //google maps in iframe
     const address = props.address;
     const city = props.city;
 

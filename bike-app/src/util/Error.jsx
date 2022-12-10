@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 function Error() {
+    //renders an error message should a network error occur
     return (
         <div style={{
             textAlign: 'center'

@@ -2,26 +2,40 @@ import React, { useState, useEffect } from "react";
 import apiCaller from "../../util/apiCaller";
 import Map from "../../util/Map";
 import PulseLoader from "react-spinners/PulseLoader";
+import Error from "../../util/Error";
 import { useParams } from 'react-router-dom';
 import './StationInfo.css'
 
 function StationInfo(props) {
+    //station info page
     const api = props.api;
+    //get api url from app.jsx
     const { id } = useParams();
+    //get id paramater from url to fetch station by id
     const [ station, setStation ] = useState({});
+    //holds station object
     const { nimi, namn, osoite, adress, kaupunki, stad, kapasiteet, num_from, num_to} = station || null;
+    //deconstruct station object and get vals, if no station set to null to avoid crashing
+    const [ hasError, setHasError ] = useState(false);
 
     useEffect(() => {
+        //get station and update state to re-render
+        //render error message if api call unsuccesful
         apiCaller.getStationById(api, id).then((station) => {
             setStation(station);
+        }).catch(() => {
+            setHasError(true);
+            throw new Error('Unable to get station data. Call Vic!')
         })
     }, []);
 
     return (
         <>
-            {nimi ?
+        {!hasError ? //checks there is no api error
+            <>
+            {nimi ? //checks if station has a name, meaning station info has loaded in
                 <div className="info">
-                    <h2>{nimi} Station 🚲</h2>
+                    <h2>{nimi} Station <span className="bike">🚲</span></h2>
                     <div className="container">
                         <Map address={osoite} city={kaupunki} />
                         <div>
@@ -36,13 +50,16 @@ function StationInfo(props) {
                         </div>
                     </div>
                 </div>
-            : 
+            : //render pulse loader while waiting for station
             <PulseLoader color="#646cff" cssOverride={{
                 display: 'flex',
                 justifyContent: 'center',
                 margin: '1rem'
             }}/>
-            }
+            }</> :
+            <Error />
+            //render error message
+        }
         </>
     )
 }

@@ -12,6 +12,7 @@ function App() {
     <>
       <nav>
         <ul>
+          {/*Navigation*/}
           <li><Link to="/">Home</Link></li>
           <li><Link to="/stations">Stations</Link></li>
           <li><Link to="/journeys">Journeys</Link></li>
