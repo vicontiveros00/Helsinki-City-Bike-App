@@ -1,6 +1,6 @@
-# fly.toml file generated for vichelbikeapp on 2022-12-07T12:34:00+02:00
+# fly.toml file generated for helbikeappvic on 2022-12-07T12:34:00+02:00
 
-app = "vichelbikeapp"
+app = "helbikeappvic"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []

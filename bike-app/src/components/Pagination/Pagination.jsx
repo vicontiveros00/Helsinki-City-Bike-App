@@ -1,12 +1,7 @@
 import './Pagination.css';
 
 function Pagination(props) {
-    const currentPage = props.currentPage;
-    const totalPages = props.totalPages;
-    const handleFirstButton = props.handleFirstButton;
-    const handleSecondButton = props.handleSecondButton;
-    const handleThirdButton = props.handleThirdButton;
-    const handleLastButton = props.handleLastButton;
+    const { currentPage, totalPages, handleFirstButton, handleSecondButton, handleThirdButton, handleLastButton } = props;
     //import button handler functions
 
     return (
