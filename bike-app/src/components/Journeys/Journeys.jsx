@@ -3,6 +3,7 @@ import Journey from './Journey/Journey';
 import apiCaller from '../../util/apiCaller';
 import PulseLoader from 'react-spinners/PulseLoader';
 import Error from '../../util/Error';
+import Pagination from '../Pagination/Pagination';
 import './Journeys.css';
 
 function Journeys(props) {
@@ -29,6 +30,23 @@ function Journeys(props) {
         throw new Error('Unable to get journeys. Call Vic!');
     }
 
+    //next 4 functions are handlers to be passed to pagination to handle updating states here
+    const handleFirstButton = () => {
+        setCurrentPage(1);
+    }
+
+    const handleSecondButton = () => {
+        setCurrentPage(currentPage - 1);
+    }
+
+    const handleThirdButton = () => {
+        setCurrentPage(currentPage + 1);
+    }
+
+    const handleLastButton = () => {
+        setCurrentPage(totalPages);
+    }
+
     useEffect(() => {
         setIsLoading(true);
         apiCaller.getJourneys(url, currentPage, sortMethod).then((journeys) => {
@@ -50,37 +68,14 @@ function Journeys(props) {
             {window.innerWidth < 800 && <p>Table doesn't look good on smaller screens :(</p>}
             {/*show message for smaller screens*/}
             <h1>All City Bike Journeys</h1>
-            <div className='pagination'>
-                <button disabled= {
-                     currentPage < 3
-                     //disable button if page is before page 3
-                } onClick= {() => {
-                    setCurrentPage(1);
-                    //return to first page
-                }}>◄◄</button>
-                <button disabled={
-                    currentPage <= 1
-                    //disable button if user already on first page
-                } onClick={() => {
-                    setCurrentPage(currentPage - 1);
-                    //go one page back
-                }}>◄</button>
-                <p>{currentPage} of {totalPages}</p>
-                <button disabled={
-                    currentPage >= totalPages
-                    //disable button if user is on last page
-                } onClick={() => {
-                    setCurrentPage(currentPage + 1);
-                    //go one page forward
-                }}>►</button>
-                <button disabled= {
-                    currentPage >= totalPages - 1
-                    //disable button if user is on last 2 pages
-                } onClick= {() => {
-                    setCurrentPage(totalPages);
-                    //send user to last page
-                }}>►►</button>
-            </div>
+            <Pagination 
+                handleFirstButton = {handleFirstButton}
+                handleSecondButton = {handleSecondButton}
+                handleThirdButton = {handleThirdButton}
+                handleLastButton = {handleLastButton}
+                currentPage = {currentPage}
+                totalPages = {totalPages}
+            />
             <div className='journeys'>
                 {!isLoading ? //render table if no pending api request
                 <table>

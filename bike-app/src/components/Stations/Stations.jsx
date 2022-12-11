@@ -1,6 +1,7 @@
 import apiCaller from '../../util/apiCaller.js';
 import Station from './Station/Station.jsx';
 import Error from '../../util/Error';
+import Pagination from '../Pagination/Pagination.jsx';
 import React, { useState, useEffect } from "react";
 import PulseLoader from 'react-spinners/PulseLoader';
 import './Stations.css';
@@ -27,6 +28,23 @@ function Stations(props) {
         setIsLoading(false);
         setHasError(true);
         throw new Error('Unable to get stations. Call Vic!');
+    }
+
+    //next 4 functions are handlers to be passed to pagination to handle updating states here
+    const handleFirstButton = () => {
+        setCurrentPage(1);
+    }
+
+    const handleSecondButton = () => {
+        setCurrentPage(currentPage - 1);
+    }
+
+    const handleThirdButton = () => {
+        setCurrentPage(currentPage + 1);
+    }
+
+    const handleLastButton = () => {
+        setCurrentPage(totalPages);
     }
 
     const reset = () => {
@@ -85,38 +103,14 @@ function Stations(props) {
                         reset();
                     }}
                 />
-                {!isSearching && <div className='pagination'>
-                    {/*render pagination buttons if no pending search*/}
-                    <button disabled= {
-                        currentPage < 3
-                        //disable button if page is before page 3
-                    } onClick= {() => {
-                        setCurrentPage(1);
-                        //return to first page
-                    }}>◄◄</button>
-                    <button disabled= {
-                        currentPage <= 1
-                        //disable button if user already on first page
-                    } onClick={() => {
-                        setCurrentPage(currentPage - 1);
-                        //go one page back
-                    }}>◄</button>
-                    <p>{currentPage} of {totalPages > 0 ? totalPages : 1}</p>
-                    <button disabled={
-                        currentPage >= totalPages
-                        //disable button if user is on last page
-                    } onClick={() => {
-                        setCurrentPage(currentPage + 1);
-                        //go one page forward
-                    }}>►</button>
-                    <button disabled= {
-                        currentPage >= totalPages - 1
-                        //disable button if user is on last 2 pages
-                    } onClick= {() => {
-                        setCurrentPage(totalPages);
-                        //send user to last page
-                    }}>►►</button>
-                </div>}
+                {!isSearching && <Pagination 
+                    handleFirstButton = {handleFirstButton}
+                    handleSecondButton = {handleSecondButton}
+                    handleThirdButton = {handleThirdButton}
+                    handleLastButton = {handleLastButton}
+                    currentPage = {currentPage}
+                    totalPages = {totalPages}
+                />}
                 {!isLoading ?
                 //render stations if no pending api request
                 <div className='stations'>

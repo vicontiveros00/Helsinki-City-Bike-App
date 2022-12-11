@@ -40,7 +40,7 @@ Dependencies:
 ![View of home page](media/homepage.PNG)<br>
 Contains a description of the app, the longest journey in the database, and a link to my github. Should a network error occur, nothing will display above the link to my github.
 
-### Pagination
+### [Pagination](bike-app/src/components/Pagination/Pagination.jsx)
 ![View of pagination](media/pagination.PNG)<br>
 - ◄◄ button sends users back to the first page of stations. Appears when current page is over 2.
 - ◄ button sends users one page back. Appears when current page is over 1.
