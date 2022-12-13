@@ -71,7 +71,7 @@ Schema for `journeys`:<br>
 ![Journeys schema](media/journeysschema.PNG)<br><br>
 
 To remove journeys that lasted for less than 10 seconds in SQL:<br>
-```
+```SQL
 DELETE
 FROM journeys
 WHERE distance_m < 10;
@@ -81,7 +81,8 @@ WHERE duration_s < 10;
 ```
 <br><br>
 To remove duplicate journeys (of which there were plenty) in SQL:<br>
-```
+
+```SQL
 DELETE FROM journeys
 WHERE id IN (SELECT id FROM journey
     GROUP BY departure, return_time, departure_station_id, departure_station_name, return_station_id, return_station_name, distance_m, duration_s
@@ -89,7 +90,8 @@ WHERE id IN (SELECT id FROM journey
 ```
 <br><br>
 To count how many journeys started/ended at each station in SQL:<br>
-```
+
+```SQL
 UPDATE stations
 SET num_from = (SELECT COUNT(*)
     FROM journeys
