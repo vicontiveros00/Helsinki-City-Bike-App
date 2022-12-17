@@ -81,24 +81,33 @@ function Journeys(props) {
                 <table>
                     <tbody>
                         <tr>
-                            <th className='filter' onClick={() => {
+                            <th className={`filter ${
+                                sortMethod === 'departure' || sortMethod === '-departure' ? sortMethod : ''
+                                //set appropriate class name based off of sortMethod to show asc/desc marker on table (check Journeys.css)
+                            }`} onClick={() => {
                                 setCurrentPage(1);
                                 //revert user back to first page when sort method is updated
                                 setSortMethod(sortMethod === '-departure' ? 'departure' : '-departure');
                                 //update sort method, if sort method is already departure DESC set it to departure ASC
                                 //continue same logic onto other th elements
                             }}>Departure</th>
-                            <th className='filter' onClick={() => {
+                            <th className={`filter ${
+                                sortMethod === 'return_time' || sortMethod === '-return_time' ? sortMethod : ''
+                            }`} onClick={() => {
                                 setCurrentPage(1);
                                 setSortMethod(sortMethod === '-return_time' ? 'return_time' : '-return_time');
                             }}>Return</th>
                             <th>From</th>
                             <th>To</th>
-                            <th className='filter' onClick={() => {
+                            <th className={`filter ${
+                                sortMethod === 'distance_m' || sortMethod === '-distance_m' ? sortMethod : ''
+                            }`} onClick={() => {
                                 setCurrentPage(1);
                                 setSortMethod(sortMethod === '-distance_m' ? 'distance_m' : '-distance_m');
                             }}>Distance</th>
-                            <th className='filter' onClick={() => {
+                            <th className={`filter ${
+                                sortMethod === 'duration_s' || sortMethod === '-duration_s' ? sortMethod : ''
+                            }`} onClick={() => {
                                 setCurrentPage(1);
                                 setSortMethod(sortMethod === '-duration_s' ? 'duration_s' : '-duration_s');
                             }}>Duration</th>

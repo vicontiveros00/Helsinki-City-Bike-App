@@ -38,3 +38,11 @@
 .filter::after {
     content: '↕'
 }
+
+.-departure::after, .-return_time::after, .-distance_m::after, .-duration_s::after {
+    content: '▼'
+}
+
+.departure::after, .return_time::after, .distance_m::after, .duration_s::after {
+    content: '▲'
+}
