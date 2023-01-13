@@ -47,6 +47,11 @@ function Journeys(props) {
         setCurrentPage(totalPages);
     }
 
+    //handle displaying sort marker
+    const updateSortMarker = (sort) => {
+        setSortMethod(sortMethod === sort ? `-${sort}` : sort)
+    }
+
     useEffect(() => {
         setIsLoading(true);
         apiCaller.getJourneys(url, currentPage, sortMethod).then((journeys) => {
@@ -87,15 +92,15 @@ function Journeys(props) {
                             }`} onClick={() => {
                                 setCurrentPage(1);
                                 //revert user back to first page when sort method is updated
-                                setSortMethod(sortMethod === '-departure' ? 'departure' : '-departure');
-                                //update sort method, if sort method is already departure DESC set it to departure ASC
+                                updateSortMarker('departure');
+                                //update sort method, if sort method is already departure DESC set it to departure ASC, refer to function updateSortMarker
                                 //continue same logic onto other th elements
                             }}>Departure</th>
                             <th className={`filter ${
                                 sortMethod === 'return_time' || sortMethod === '-return_time' ? sortMethod : ''
                             }`} onClick={() => {
                                 setCurrentPage(1);
-                                setSortMethod(sortMethod === '-return_time' ? 'return_time' : '-return_time');
+                                updateSortMarker('return_time');
                             }}>Return</th>
                             <th>From</th>
                             <th>To</th>
@@ -103,13 +108,13 @@ function Journeys(props) {
                                 sortMethod === 'distance_m' || sortMethod === '-distance_m' ? sortMethod : ''
                             }`} onClick={() => {
                                 setCurrentPage(1);
-                                setSortMethod(sortMethod === '-distance_m' ? 'distance_m' : '-distance_m');
+                                updateSortMarker('distance_m');
                             }}>Distance</th>
                             <th className={`filter ${
                                 sortMethod === 'duration_s' || sortMethod === '-duration_s' ? sortMethod : ''
                             }`} onClick={() => {
                                 setCurrentPage(1);
-                                setSortMethod(sortMethod === '-duration_s' ? 'duration_s' : '-duration_s');
+                                updateSortMarker('duration_s');
                             }}>Duration</th>
                         </tr>
                 {journeys.map((journey) => {
