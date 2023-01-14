@@ -54,6 +54,9 @@ function Stations(props) {
         apiCaller.getAllStations(url, currentPage).then((stations) => {
             const { items, totalPages } = stations
             setStations(items);
+            if (items.code === 404) {
+                handleError();
+            }
             setTotalPages(totalPages);
             setIsLoading(false);
             setIsSearching(false);
@@ -127,7 +130,8 @@ function Stations(props) {
                                         {/*render row for each station object in station array, default 10 per api caller*/}
                                     </tr>
                                 )
-                            })}  
+                            })}
+                              
                         </tbody>
                     </table>
                 </div> : 

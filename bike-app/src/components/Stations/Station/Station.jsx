@@ -12,7 +12,6 @@ function Station({ station }) {
             </td>
             <td>{kaupunki}</td>
         </>
-        
     )
 }
 

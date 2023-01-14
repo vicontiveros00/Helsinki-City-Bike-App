@@ -4,6 +4,7 @@ import StationInfo from './components/StationInfo/StationInfo';
 import Journeys from './components/Journeys/Journeys';
 import { Link, Route, Routes, Navigate } from 'react-router-dom'
 import './App.css'
+//couldve used a framework like bootstrap but I wanted to keep this lightweight so I threw together my own CSS
 
 function App() {
   const apiUrl = 'https://helbikeappvic.fly.dev';

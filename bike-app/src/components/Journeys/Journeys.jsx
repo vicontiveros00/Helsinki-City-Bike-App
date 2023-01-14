@@ -57,6 +57,9 @@ function Journeys(props) {
         apiCaller.getJourneys(url, currentPage, sortMethod).then((journeys) => {
             const { items, totalPages } = journeys;
             setJourneys(items);
+            if (items.code === 404) {
+                handleError();
+            }
             setTotalPages(totalPages);
             setIsLoading(false);
         }).catch(() => {

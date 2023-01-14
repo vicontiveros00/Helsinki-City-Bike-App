@@ -22,15 +22,21 @@ function StationInfo(props) {
         return !word.includes('asema' || 'Asema');
     }
     //do not display the word 'station' if the name of the station already contains the substring 'asema'
+    const handleError = () => {
+        setHasError(true);
+        throw new Error('Unable to get station info. Call Vic!');
+    }
 
     useEffect(() => {
         //get station and update state to re-render
         //render error message if api call unsuccesful
         apiCaller.getStationById(api, id).then((station) => {
             setStation(station);
+            if (station.code === 404) {
+                handleError();  
+            }
         }).catch(() => {
-            setHasError(true);
-            throw new Error('Unable to get station data. Call Vic!')
+            handleError();
         })
     }, []);
 
