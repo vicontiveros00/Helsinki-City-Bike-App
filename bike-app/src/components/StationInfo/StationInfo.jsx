@@ -18,6 +18,11 @@ function StationInfo(props) {
     //deconstruct station object and get vals, if no station set to null to avoid crashing
     const [ hasError, setHasError ] = useState(false);
 
+    const containsWordAsema = (word) => {
+        return !word.includes('asema' || 'Asema');
+    }
+    //do not display the word 'station' if the name of the station already contains the substring 'asema'
+
     useEffect(() => {
         //get station and update state to re-render
         //render error message if api call unsuccesful
@@ -35,7 +40,7 @@ function StationInfo(props) {
             <>
             {nimi ? //checks if station has a name, meaning station info has loaded in
                 <div className="info">
-                    <h2>{nimi} Station <span className="bike">🚲</span></h2>
+                    <h2>{`${nimi} `}{containsWordAsema(nimi) && 'Station '}<span className="bike">🚲</span></h2>
                     <div className="container">
                         <Map address={osoite} city={kaupunki} />
                         <div>
