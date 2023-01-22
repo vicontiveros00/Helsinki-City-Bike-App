@@ -103,6 +103,14 @@ button:disabled {
   animation: cycling 2s ease 0s infinite normal;
 }
 
+.footer {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1rem;
+}
+
 @keyframes cycling {
   0% {
       transform: translateY(0);  

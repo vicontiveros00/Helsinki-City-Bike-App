@@ -27,6 +27,11 @@ Requirements:
 1. Run `git clone https://github.com/vicontiveros00/Helsinki-City-Bike-App.git` in your terminal to clone the repository. (Alternatively, you could download the repo instead.)
 2. Navigate to `bike-app/` and run `npm install` to install the necessary dependencies.
 3. Run `npm run dev` to get a local development build running. You'll usually find the app running at http://localhost:5173/. If not, check the terminal.
+4. To build a production version of the app, navigate to `bike-app/` and run `npm run build`. The custom script 
+```javascript
+"build": "vite build && cd dist && cp index.html 200.html"
+```
+allows an additional 200.html file to be created so the React code can execute when a connection is made to a hosted production version of the app at any URL path. 
 
 The API is running on [fly.io](https://fly.io/) so there's no set up to get the backend running.
 
@@ -38,7 +43,8 @@ Dependencies:
 
 ### [Home Page](bike-app/src/components/Home/Home.jsx)
 ![View of home page](media/homepage.PNG)<br>
-Contains a description of the app, the longest journey in the database, and a link to my github. Should a network error occur, nothing will display above the link to my github.
+Contains a description of the app, and the longest journey in the database.
+
 
 ### [Pagination](bike-app/src/components/Pagination/Pagination.jsx)
 ![View of pagination](media/pagination.PNG)<br>

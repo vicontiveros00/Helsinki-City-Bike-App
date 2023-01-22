@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Journey from './Journey/Journey';
-import apiCaller from '../../util/apiCaller';
+import { getJourneys } from '../../util/apiCaller';
 import PulseLoader from 'react-spinners/PulseLoader';
 import Error from '../../util/Error';
 import Pagination from '../Pagination/Pagination';
 import './Journeys.css';
+import useWindowWidth from '../../util/windowWidthHook';
 
-function Journeys(props) {
+const Journeys = ({ api }) => {
     //journeys table
-    const url = props.api;
     //grab api url from app.jsx
     const [ journeys, setJourneys ] = useState([]);
     //holds array of journey objects from api call
@@ -22,6 +22,8 @@ function Journeys(props) {
     //handle error is api call is unsuccesful
     const [ sortMethod, setSortMethod ] = useState('departure');
     //holds sort method from user input
+    const width = useWindowWidth();
+    //use custom window width hook to warn users about poor table viewablity on smaller screens
 
     const handleError = () => {
         //error handler
@@ -54,17 +56,19 @@ function Journeys(props) {
 
     useEffect(() => {
         setIsLoading(true);
-        apiCaller.getJourneys(url, currentPage, sortMethod).then((journeys) => {
-            const { items, totalPages } = journeys;
-            setJourneys(items);
-            if (items.code === 404) {
+        const getJourneysOnRender = async () => {
+            try {
+                const data = await getJourneys(api, currentPage, sortMethod);
+                const { items, totalPages } = data;
+                setJourneys(items);
+                setTotalPages(totalPages);
+                setIsLoading(false);
+            } catch (err) {
                 handleError();
+                throw new Error(err);
             }
-            setTotalPages(totalPages);
-            setIsLoading(false);
-        }).catch(() => {
-            handleError();
-        })
+        }
+        getJourneysOnRender();
     }, [currentPage, sortMethod]);
     //get new set of journeys when currentPage or sortMethod states is updated
     //call error handler function if api call is unsuccesful
@@ -73,7 +77,7 @@ function Journeys(props) {
         <>
         {!hasError ? //render page if there is no error
         <div className='journey-list'>
-            {window.innerWidth < 800 && <p>Table doesn't look good on smaller screens :(</p>}
+            {width < 800 && <p>Table doesn't look good on smaller screens :(</p>}
             {/*show message for smaller screens*/}
             <h1>All City Bike Journeys</h1>
             <Pagination 
@@ -120,14 +124,14 @@ function Journeys(props) {
                                 updateSortMarker('duration_s');
                             }}>Duration</th>
                         </tr>
-                {journeys.map((journey) => {
-                    return (
-                        <tr>
-                            <Journey key={journey.id} journey={journey} />
-                            {/*render row for each journey in journey array, default 10 per api caller*/}
-                        </tr>
-                    )
-                })}
+                        {journeys.map((journey) => {
+                            return (
+                                <tr>
+                                    <Journey key={journey.id} journey={journey} />
+                                    {/*render row for each journey in journey array, default 10 per api caller*/}
+                                </tr>
+                            )
+                        })}
                     </tbody>
                 </table> : 
                     <>

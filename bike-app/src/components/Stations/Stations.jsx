@@ -1,4 +1,4 @@
-import apiCaller from '../../util/apiCaller.js';
+import { getAllStations, searchStations } from '../../util/apiCaller.js';
 import Station from './Station/Station.jsx';
 import Error from '../../util/Error';
 import Pagination from '../Pagination/Pagination.jsx';
@@ -6,10 +6,8 @@ import React, { useState, useEffect } from "react";
 import PulseLoader from 'react-spinners/PulseLoader';
 import './Stations.css';
 
-function Stations(props) {
-    //stations list
-    const url = props.api;
-    //grab api url from app.jsx
+const Stations = ({ api }) => {
+    //stations list component, api is api url prop
     const [ stations, setStations ] = useState([]);
     //holds array of station objects from api call
     const [ totalPages, setTotalPages ] = useState(1);
@@ -47,22 +45,19 @@ function Stations(props) {
         setCurrentPage(totalPages);
     }
 
-    const reset = () => {
-        //reset states
+    const reset = async () => {
         setIsLoading(true);
-        //get stations on current page
-        apiCaller.getAllStations(url, currentPage).then((stations) => {
-            const { items, totalPages } = stations
+        try {
+            const data = await getAllStations(api, currentPage);
+            const { items, totalPages } = data;
             setStations(items);
-            if (items.code === 404) {
-                handleError();
-            }
             setTotalPages(totalPages);
             setIsLoading(false);
             setIsSearching(false);
-        }).catch(() => {
+        } catch (err) {
             handleError();
-        })
+            throw new Error(err);
+        }
     }
 
     useEffect(() => {
@@ -70,20 +65,19 @@ function Stations(props) {
         reset();
     }, [currentPage]);
 
-    const handleSearch = (query) => {
+    const handleSearch = async (query) => {
         //search handler
         if (!query.includes('\'') && !query.includes(';')) {
-            console.log(query);
-            //for some reason ' and ; causes api errors, avoid removing or altering above line
-            apiCaller.searchStations(url, query).then((stations) => {
-                const { items, totalPages } = stations;
+            //for some reason ' and ; causes api errors, modify above line at own risk
+            try {
+                const data = await searchStations(api, query);
+                const { items, totalPages } = data;
                 setIsSearching(true);
                 setTotalPages(totalPages);
                 setStations(items);
-                //set items to stations state to render results
-            }).catch(() => {
-                handleError();
-            })
+            } catch {
+                handleError()
+            }
         } else if (query == '') {
             reset();
             //reset states when input contains empty string
@@ -92,61 +86,61 @@ function Stations(props) {
 
     return (
         <>
-        {!hasError ?
-        <div className='station-list'>
-            <h1>All City Bike Stations</h1>
-                <input
-                    type='text'
-                    maxLength='10'
-                    //overly long requests slow down api
-                    placeholder='Search by name or address'
-                    onChange={(e)=> {
-                        e.target.value ?
-                        handleSearch(e.target.value) :
-                        reset();
-                    }}
-                />
-                {!isSearching && <Pagination 
-                    handleFirstButton = {handleFirstButton}
-                    handleSecondButton = {handleSecondButton}
-                    handleThirdButton = {handleThirdButton}
-                    handleLastButton = {handleLastButton}
-                    currentPage = {currentPage}
-                    totalPages = {totalPages}
-                />}
-                {!isLoading ?
-                //render stations if no pending api request
-                <div className='stations'>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <th>Name</th>
-                                <th>City</th>
-                            </tr>
-                            {stations.map((station) => {
-                                return (
-                                    <tr>
-                                        <Station key={station.id} station={station} />
-                                        {/*render row for each station object in station array, default 10 per api caller*/}
-                                    </tr>
-                                )
-                            })}
-                              
-                        </tbody>
-                    </table>
+            {!hasError ?
+                <div className='station-list'>
+                    <h1>All City Bike Stations</h1>
+                        <input
+                            type='text'
+                            maxLength='10'
+                            //overly long requests slow down api
+                            placeholder='Search by name or address'
+                            onChange={(e)=> {
+                                e.target.value ?
+                                handleSearch(e.target.value) :
+                                reset();
+                            }}
+                        />
+                        {!isSearching && <Pagination 
+                            handleFirstButton = {handleFirstButton}
+                            handleSecondButton = {handleSecondButton}
+                            handleThirdButton = {handleThirdButton}
+                            handleLastButton = {handleLastButton}
+                            currentPage = {currentPage}
+                            totalPages = {totalPages}
+                        />}
+                        {!isLoading ?
+                        //render stations if no pending api request
+                            <div className='stations'>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>City</th>
+                                        </tr>
+                                        {stations.map((station) => {
+                                            return (
+                                                <tr>
+                                                    <Station key={station.id} station={station} />
+                                                    {/*render row for each station object in station array, default 10 per api caller*/}
+                                                </tr>
+                                            )
+                                        })}
+                                        
+                                    </tbody>
+                                </table>
+                            </div> : 
+                            <>
+                                <PulseLoader color="#646cff" cssOverride={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    margin: '1rem'
+                                }}/>
+                                {/*render pulse loader when waiting for new stations*/}
+                            </>
+                        }
                 </div> : 
-                <>
-                    <PulseLoader color="#646cff" cssOverride={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        margin: '1rem'
-                    }}/>
-                    {/*render pulse loader when waiting for new stations*/}
-                </>
-                }
-        </div> : 
-        <Error /> //display error message if api call unsuccesful
-        }
+                <Error /> //display error message if api call unsuccesful
+            }
         </>
     ) 
 }

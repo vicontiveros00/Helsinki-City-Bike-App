@@ -11,6 +11,12 @@ html::-webkit-scrollbar {
 html {
   -ms-overflow-style: none;
   scrollbar-width: none;
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 6rem;
 }
 
 :root {
