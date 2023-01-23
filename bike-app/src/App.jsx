@@ -5,9 +5,10 @@ import Journeys from './components/Journeys/Journeys';
 import { Link, Route, Routes, Navigate } from 'react-router-dom'
 import './App.css'
 
+export const apiUrl = 'https://helbikeappvic.fly.dev';
+
 const App = () => {
-  const apiUrl = 'https://helbikeappvic.fly.dev';
-  //todo: add authentication
+  //decided not to require authentication so devs can run a dev build without any setup on the backend, db will remain read-only
 
   return (
     <>
