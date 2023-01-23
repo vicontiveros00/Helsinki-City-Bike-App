@@ -17,6 +17,7 @@ Tags: `react.js`, `javascript`, `rest api`, `sqlite`, `pocketbase`, `docker`, `f
 - [Backend???](#backend)
     - [Handling the data](#handling-the-data)
     - [API](#api)
+- [Testing Suite](#testing)
 - [Project Reflection](#project-reflection)
 - [Licenses](#licenses)
 
@@ -128,7 +129,7 @@ Endpoints examples:
 Query parametes can be combined with `&`. Refer to [Pocketbase Docs](https://pocketbase.io/docs/) for more information.
 
 ## Project Reflection
-Improvements can still be made and I will continue to maintain this codebase when I grow as a developer to apply newly acquired skills. As a frontend developer, I am pleased with the end result of this fullstack project. I managed to learn a few things here and there and that's what matters most as an aspiring developer. This project lacks testing but I can't say that I have a confident grasp on testing frameworks and how to write tests. It's something I'd like to pick up from the academy with other like-minded developers, and that's why I'd feel like a perfect candidate for the Solita Dev Academy as I still have a lot to learn and while I'm on my journey to become a more skillful developer I can make a difference and contribute to real world applications. I hope there will be a lot more to learn than just tesing, as I'm always hungry to learn new concepts and improve on old ones. Thank you for your time and consideration over at Solita. Shoutout to Beata Kuśnierz for referring me to the academy and telling me everything about the greatness of being a part of Solita.
+Improvements can still be made and I will continue to maintain this codebase when I grow as a developer to apply newly acquired skills. As a frontend developer, I am pleased with the end result of this fullstack project. I managed to learn a few things here and there and that's what matters most as an aspiring developer. The testing suite is not adequate for in-depth testing as through my certifications and studies, unit tests have always been provided. Testing is something I'd like to pick up from the academy with other like-minded developers, and that's why I'd feel like a perfect candidate for the Solita Dev Academy as I still have a lot to learn and while I'm on my journey to become a more skillful developer I can make a difference and contribute to real world applications. I hope there will be a lot more to learn than just tesing, as I'm always hungry to learn new concepts and improve on old ones. Thank you for your time and consideration over at Solita. Shoutout to Beata Kuśnierz for referring me to the academy and telling me everything about the greatness of being a part of Solita.
 
 ###### Licenses
 Station data is owned by [HSL](https://www.avoindata.fi/data/en_GB/dataset/hsl-n-kaupunkipyoraasemat/resource/a23eef3a-cc40-4608-8aa2-c730d17e8902?inner_span=True).<br> 
