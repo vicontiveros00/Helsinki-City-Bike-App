@@ -6,9 +6,9 @@ import { Link, Route, Routes, Navigate } from 'react-router-dom'
 import './App.css'
 
 export const apiUrl = 'https://helbikeappvic.fly.dev';
+//if running locally, change to localhost:8080, port may vary
 
 const App = () => {
-  //decided not to require authentication so devs can run a dev build without any setup on the backend, db will remain read-only
 
   return (
     <>

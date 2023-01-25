@@ -1,6 +1,8 @@
 # [HEL CITY BIKE APP](https://helbikeapp.surge.sh/)
 
-This project was created for a pre-assignment for [Solita's Dev Academy 2023](https://github.com/solita/dev-academy-2023-exercise).<br>
+Developer: Víctor Manuel Ontiveros
+
+This project was created as a pre-assignment for [Solita's Dev Academy 2023](https://github.com/solita/dev-academy-2023-exercise).<br>
 With this handy web app you can search through all city bike stations in the Helsinki and Espoo areas, and view information about each station.<br>
 You'll also find a sortable table with all journeys taken with these city bikes in the summer of 2021.<br><br>
 Tags: `react.js`, `javascript`, `rest api`, `sqlite`, `pocketbase`, `docker`, `fly.io` 
@@ -17,13 +19,13 @@ Tags: `react.js`, `javascript`, `rest api`, `sqlite`, `pocketbase`, `docker`, `f
 - [Backend???](#backend)
     - [Handling the data](#handling-the-data)
     - [API](#api)
-- [Testing Suite](#testing)
+- [API Testing Suite](#testing-suite)
 - [Project Reflection](#project-reflection)
 - [Licenses](#licenses)
 
 ## Running a development build locally
 Requirements:
-- [Node.js 18](https://nodejs.org/en/)<br>
+- [Node.js ^18](https://nodejs.org/en/)<br>
 
 1. Run `git clone https://github.com/vicontiveros00/Helsinki-City-Bike-App.git` in your terminal to clone the repository. (Alternatively, you could download the repo instead.)
 2. Navigate to `bike-app/` and run `npm install` to install the necessary dependencies.
@@ -34,10 +36,10 @@ Requirements:
 ```
 allows an additional 200.html file to be created so the React code can execute when a connection is made to a hosted production version of the app at any URL path. 
 
-The API is running on [fly.io](https://fly.io/) so there's no set up to get the backend running.
+The API is hosted on [fly.io](https://fly.io/) so there's no set up to get the backend running. However, if you'd like to host the backend locally check the [Backend](#backend) section and update the `apiUrl` variable on line 8 in [`bike-app/src/App.jsx`](/bike-app/src/App.jsx) to the appropriate URL.
 
 ## Frontend
-The frontend is built with [React.js](https://reactjs.org/) initialized with [Vite](https://vitejs.dev/) to improve performance on development builds. Frontend is responsive and works well on mobile devices as well. Check the code comments for details on components, functions, error handling, API calls, etc.<br>
+Files are found in [`bike-app/`](/bike-app/). The frontend is built with [React.js](https://reactjs.org/) initialized with [Vite](https://vitejs.dev/) to improve performance on development builds. Frontend is responsive and works well on mobile devices as well. Check the code comments for details on components, functions, error handling, API calls, etc.<br>
 Dependencies:
 - [React Router](https://reactrouter.com/en/main)
 - [React Spinners](https://www.npmjs.com/package/react-spinners)<br>
@@ -56,7 +58,7 @@ Contains a description of the app, and the longest journey in the database.
 
 ### [Stations List](bike-app/src/components/Stations/Stations.jsx)
 ![View of stations list](media/stationslist.PNG)<br>
-The searchbar allows user to search through the stations by name or address.<br>[Pagination](#pagination) is added to improve performance. 
+The searchbar allows user to search through the stations by name or address.<br>[Pagination](#pagination) is added to improve usability. 
 Bellow pagination you will find a list of 10 stations sorted by name. Each row containes a link to the [station's info page](#station-info), and which city the station is located in.
 
 ### [Station Info](bike-app/src/components/StationInfo/StationInfo.jsx)
@@ -68,7 +70,7 @@ Contains the station's location on [Google Maps](https://developers.google.com/m
 Here is a complete table of journeys taken in the summer of 2021 on city bikes and [pagination](#pagination). By default, the data is sorted in ascending order by departure time. Clicking on the head will sort the respective column by descending order, and a second click will sort the respective column by ascending order. You are able to view information about each station from the journeys table as well.
 
 ## [Backend](api/)
-You're probably wondering how the backend works. If you show massive CSV files to most other frontend developers they will most likely run away. The backend runs on a VM hosted on [fly.io](https://fly.io/) via [Docker](api/Dockerfile). It's a REST API using [Pocketbase](https://pocketbase.io/docs/), an open source way of bootstrapping a backend. It's built upon Typescript and SQLite. I might only be a front end developer, but I have some tricks to handle APIs and data. Should one want to run the API locally, navigate to `api/` and run `./pocketbase serve`. (Data has to be in `.db` format, in `api/pb_data`).
+Files pertaining to the backend are found in [`api/`](/api/). You're probably wondering how the backend works. If you show massive CSV files to most other frontend developers they will most likely run away. The backend runs on a VM hosted on [fly.io](https://fly.io/) via [Docker](api/Dockerfile). It's a REST API using [Pocketbase](https://pocketbase.io/docs/), an open source way of bootstrapping a backend. It's built upon Go and SQLite. I might only be a front end developer, but I have some tricks to handle APIs and data. Should one want to run the API locally, navigate to `api/` and run `./pocketbase serve`. (Data has to be in `.db` format, in `api/pb_data`).<br>Download a `.db` and pre-queried version of the database used by the API [here](https://www.dropbox.com/s/y8w9t4q9dr3k38c/data.db?dl=0).
 
 ### Handling the data
 CSV files were imported into Pocketbase's SQLite Database using [DB Browser](https://sqlitebrowser.org/).<br>
@@ -121,12 +123,32 @@ JSON includes:
 [`bike-app/src/util/apiCaller.js`](bike-app/src/util/apiCaller.js) contains some API endpoints being used.
 
 Endpoints examples:
-- `/api/collections/${stations || journeys}/records?page=${pageNumber}`
-- `/api/collections/${stations || journeys}/records?perPageage=${amountPerPage}`
-- `/api/collections/${stations || journeys}/records?sort=${sortMethod}`
-- `/api/collections/${stations || journeys}/records?filter=(nimi=${searchQuery})`
+```javascript
+`/api/collections/${stations || journeys}/records?page=${pageNumber}`
+
+`/api/collections/${stations || journeys}/records?perPageage=${amountPerPage}`
+
+`/api/collections/${stations || journeys}/records?sort=${sortMethod}`
+
+`/api/collections/${stations || journeys}/records?filter=(nimi=${searchQuery})`
+```
 
 Query parametes can be combined with `&`. Refer to [Pocketbase Docs](https://pocketbase.io/docs/) for more information.
+
+## Testing Suite
+API tests are written with [Vitest](https://vitest.dev/), a lightweight version of Jest that works seamlessly with Vite. To run tests, navigate to `bike-app/` and run `npm run test`. The tests are there to insure the API is online and to ensure the functions found in [`bike-app/src/util/apiCaller.js`](/bike-app/src/util/apiCaller.js) are returning the expected results i.e. an object containing the key `items` containing necessary data for a given component.
+
+An example would be:
+```javascript
+describe('#getAllStations', () => {
+    it("Returns station object with expected key 'items'", async () => {
+        const data = await apiCaller.getAllStations(apiUrl, 1);
+        expect(data).toHaveProperty('items');
+    })
+});
+```
+
+For asynchronous tests, the default max time out time is 15000ms. This can be configured in [`bike-app/vite-config.js`](/bike-app/vite.config.js). 
 
 ## Project Reflection
 Improvements can still be made and I will continue to maintain this codebase when I grow as a developer to apply newly acquired skills. As a frontend developer, I am pleased with the end result of this fullstack project. I managed to learn a few things here and there and that's what matters most as an aspiring developer. The testing suite is not adequate for in-depth testing as through my certifications and studies, unit tests have always been provided. Testing is something I'd like to pick up from the academy with other like-minded developers, and that's why I'd feel like a perfect candidate for the Solita Dev Academy as I still have a lot to learn and while I'm on my journey to become a more skillful developer I can make a difference and contribute to real world applications. I hope there will be a lot more to learn than just tesing, as I'm always hungry to learn new concepts and improve on old ones. Thank you for your time and consideration over at Solita. Shoutout to Beata Kuśnierz for referring me to the academy and telling me everything about the greatness of being a part of Solita.

@@ -26,3 +26,5 @@ bike-app/*.sw?
 # DB files
 api/pb_data/data.db
 api/pb_data/logs.db
+
+api/fly.toml

@@ -67,8 +67,8 @@ const Stations = ({ api }) => {
 
     const handleSearch = async (query) => {
         //search handler
-        if (!query.includes('\'') && !query.includes(';')) {
-            //for some reason ' and ; causes api errors, modify above line at own risk
+        if (!query.includes('\'') && !query.includes(';') && !query.includes('\\') && !query.includes('\"')) {
+            //for some reason the above characters causes api errors, modify above line at own risk
             try {
                 const data = await searchStations(api, query);
                 const { items, totalPages } = data;
