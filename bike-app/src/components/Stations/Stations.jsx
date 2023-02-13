@@ -78,7 +78,7 @@ const Stations = ({ api }) => {
             } catch {
                 handleError()
             }
-        } else if (query == '') {
+        } else if (query === '') {
             reset();
             //reset states when input contains empty string
         }
