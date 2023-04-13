@@ -31,5 +31,4 @@ jobs:
           npm i --global surge
           npm run build
           cd dist
-          surge
-          vontiverosewhs@gmail.com
+          surge vontiverosewhs@gmail.com
