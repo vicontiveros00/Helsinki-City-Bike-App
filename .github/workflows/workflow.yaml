@@ -23,3 +23,12 @@ jobs:
           cd bike-app
           npm i
           npm run test
+
+       -name: Build and deploy frontend code
+        run: |
+          cd bike-app
+          npm i
+          npm i --global surge
+          npm run build
+          cd dist
+          surge
