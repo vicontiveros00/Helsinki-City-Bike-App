@@ -36,15 +36,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to surge
-        run: |
-          cd bike-app
-          npm i
-          npm run build
-          cd dist
-          cp index.html 200.html
         uses: dswistowski/surge-sh-action@v1
         with:
           domain: 'https://helbikeapp.surge.sh/'
           project: '.'
+          # i cant get this to work, some issue with this github action
           login: ${{ secrets.surge_login }}
           token: ${{ secrets.surge_token }}
