@@ -31,4 +31,18 @@ jobs:
           npm i --global surge
           npm run build
           cd dist
+          cp index.html 200.html
           surge vontiverosewhs@gmail.com
+  deploy:
+    name: Deplpoy to surge
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to surge
+        uses: dswistowski/surge-sh-action@v1
+        with:
+          domain: 'https://helbikeapp.surge.sh/'
+          project: './bike-app/dist'
+          login: ${{ secrets.surge_login }}
+          token: ${{ secrets.surge_token }}
+
+          #try and figure this shit out
