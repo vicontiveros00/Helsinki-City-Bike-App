@@ -41,8 +41,6 @@ jobs:
         uses: dswistowski/surge-sh-action@v1
         with:
           domain: 'https://helbikeapp.surge.sh/'
-          project: './bike-app/dist'
+          project: 'bike-app/dist'
           login: ${{ secrets.surge_login }}
           token: ${{ secrets.surge_token }}
-
-          #try and figure this shit out
