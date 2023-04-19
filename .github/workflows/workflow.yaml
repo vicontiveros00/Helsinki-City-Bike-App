@@ -26,7 +26,6 @@ jobs:
 
       - name: build
         run: |
-          pwd
           cd bike-app
           npm i
           npm i --global surge
@@ -41,6 +40,6 @@ jobs:
         uses: dswistowski/surge-sh-action@v1
         with:
           domain: 'https://helbikeapp.surge.sh/'
-          project: '${{ github.workspace }}/bike-app/dist'
+          project: '${{ github.workspace }}/bike-app/'
           login: ${{ secrets.surge_login }}
           token: ${{ secrets.surge_token }}
