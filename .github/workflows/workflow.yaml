@@ -24,7 +24,7 @@ jobs:
           npm i
           npm run test
 
-       - name: build
+      - name: build
         run: |
           cd bike-app
           npm i
