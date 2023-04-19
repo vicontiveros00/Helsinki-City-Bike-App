@@ -24,26 +24,19 @@ jobs:
           npm i
           npm run test
 
-      # - name: Build and deploy frontend code
-      #  run: |
-      #    cd bike-app
-      #    npm i
-      #    npm i --global surge
-      #    npm run build
-      #    cd dist
-      #    cp index.html 200.html
-  deploy:
-    name: Deplpoy to surge
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to surge
-        uses: dswistowski/surge-sh-action@v1
+       - name: Build and deploy frontend code
         run: |
           cd bike-app
           npm i
           npm run build
           cd dist
           cp index.html 200.html
+  deploy:
+    name: Deplpoy to surge
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to surge
+        uses: dswistowski/surge-sh-action@v1
         with:
           domain: 'https://helbikeapp.surge.sh/'
           project: '.'
