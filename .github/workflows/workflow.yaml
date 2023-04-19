@@ -12,8 +12,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  test-and-build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
 
@@ -23,10 +24,11 @@ jobs:
           npm i
           npm run test
 
-       - name: Build and deploy frontend code
+       - name: build
         run: |
           cd bike-app
           npm i
+          npm i --global surge
           npm run build
           cd dist
           cp index.html 200.html
@@ -38,6 +40,6 @@ jobs:
         uses: dswistowski/surge-sh-action@v1
         with:
           domain: 'https://helbikeapp.surge.sh/'
-          project: '.'
+          project: '../bike-app/dist/'
           login: ${{ secrets.surge_login }}
           token: ${{ secrets.surge_token }}
