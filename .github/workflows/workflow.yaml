@@ -32,7 +32,6 @@ jobs:
           npm run build
           cd dist
           cp index.html 200.html
-          surge vontiverosewhs@gmail.com
   deploy:
     name: Deplpoy to surge
     runs-on: ubuntu-latest
@@ -41,6 +40,6 @@ jobs:
         uses: dswistowski/surge-sh-action@v1
         with:
           domain: 'https://helbikeapp.surge.sh/'
-          project: '.'
+          project: '/bike-app/dist'
           login: ${{ secrets.surge_login }}
           token: ${{ secrets.surge_token }}
