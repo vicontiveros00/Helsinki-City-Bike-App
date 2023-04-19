@@ -26,6 +26,7 @@ jobs:
 
       - name: build
         run: |
+          pwd
           cd bike-app
           npm i
           npm i --global surge
